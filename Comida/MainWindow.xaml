@@ -6,8 +6,178 @@
         xmlns:local="clr-namespace:Comida"
         mc:Ignorable="d"
         Icon="Imagenes/fruit_food_apple.ico"
-        Title="Comida" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="Comida"
+        Height="700"
+        Width="950"
+        Background="#87CEFA">
+    <Window.Resources>
+        <!-- TextBox -->
+        <Style TargetType="TextBox">
+            <Setter Property="Margin"
+                    Value="0,0,0,10" />
+        </Style>
+        <!-- CheckBox -->
+        <Style TargetType="CheckBox">
+            <Setter Property="Margin"
+                    Value="5" />
+        </Style>
+        <!-- Imagenes alergenos-->
+        <Style TargetType="Image"
+               x:Key="alergenos">
+            <Setter Property="Width"
+                    Value="25" />
+            <Setter Property="Height"
+                    Value="25" />
+        </Style>
+        <Style TargetType="Image"
+               x:Key="milk"
+               BasedOn="{StaticResource alergenos}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Leche}"
+                             Value="False">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Image"
+               x:Key="gluten"
+               BasedOn="{StaticResource alergenos}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Gluten}"
+                             Value="False">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Image"
+               x:Key="sulfitos"
+               BasedOn="{StaticResource alergenos}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Sulfitos}"
+                             Value="False">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Image"
+               x:Key="soja"
+               BasedOn="{StaticResource alergenos}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Soja}"
+                             Value="False">
+                    <Setter Property="Visibility"
+                            Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <!-- Plantilla ListBox -->
+        <DataTemplate DataType="{x:Type local:Plato}">
+            <Border Width="240"
+                    Height="285"
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    Margin="10"
+                    Background="#F0F8FF">
+                <Border.Effect>
+                    <DropShadowEffect />
+                </Border.Effect>
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Top"
+                               x:Name="nombrePlatoTextBlock"
+                               Text="{Binding Path=Nombre}"
+                               FontSize="35"
+                               HorizontalAlignment="Center" />
+                    <DockPanel DockPanel.Dock="Bottom"
+                               Height="35"
+                               Margin="15,0,15,0">
+                        <DockPanel LastChildFill="False">
+                            <Image DockPanel.Dock="Left"
+                                   x:Name="banderaImage"
+                                   Source="Imagenes/mexico.png" />
+                            <StackPanel DockPanel.Dock="Right"
+                                        Orientation="Horizontal">
+                                <Image x:Name="glutenImage"
+                                       Source="Imagenes/gluten.png"
+                                       Style="{StaticResource gluten}" />
+                                <Image x:Name="lecheImage"
+                                       Source="Imagenes/milk.png"
+                                       Style="{StaticResource milk}" />
+                                <Image x:Name="sulfitosImage"
+                                       Source="Imagenes/sulfide.png"
+                                       Style="{StaticResource sulfitos}" />
+                                <Image x:Name="sojaImage"
+                                       Source="Imagenes/soybean.png"
+                                       Style="{StaticResource soja}" />
+                            </StackPanel>
+                        </DockPanel>
+                    </DockPanel>
+                    <Image Source="{Binding Path=Imagen}"
+                           Margin="15,10,15,10"
+                           Stretch="Fill" />
+                </DockPanel>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <Border BorderThickness="1"
+            BorderBrush="Black"
+            Margin="10"
+            Background="White">
+        <Grid x:Name="contenedor">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Grid.Column="0"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto"
+                          Padding="10">
+                <ListBox x:Name="listaListBox"
+                         ItemsSource="{Binding}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+            </ScrollViewer>
+            <Border Width="300"
+                    Margin="10"
+                    Padding="10"
+                    Background="#DCDCDC"
+                    Grid.Column="1">
+                <StackPanel>
+                    <TextBlock Text="Nombre del plato" />
+                    <TextBox x:Name="nombreTextBox"
+                             Text="{Binding Path=Nombre}" />
+                    <TextBlock Text="Foto del plato" />
+                    <TextBox x:Name="fotoTextBox"
+                             Text="{Binding Path=Imagen}"
+                             TextWrapping="Wrap" />
+                    <TextBlock Text="Tipo de comida" />
+                    <ComboBox x:Name="paisesComboBox"
+                              ItemsSource="{Binding}"
+                              SelectedItem="1" />
+                    <GroupBox Header="Alérgenos"
+                              Background="#DCDCDC"
+                              BorderBrush="Black"
+                              Margin="0,10,0,0">
+                        <UniformGrid Columns="2">
+                            <CheckBox x:Name="lecheCheckBox"
+                                      Content="Leche"
+                                      IsChecked="{Binding Path=Leche}" />
+                            <CheckBox Content="Soja"
+                                      IsChecked="{Binding Path=Soja}" />
+                            <CheckBox Content="Gluten"
+                                      IsChecked="{Binding Path=Gluten}" />
+                            <CheckBox Content="Sulfitos"
+                                      IsChecked="{Binding Path=Sulfitos}" />
+                        </UniformGrid>
+                    </GroupBox>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
 </Window>

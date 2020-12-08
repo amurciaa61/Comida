@@ -101,5 +101,24 @@
   <ItemGroup>
     <Resource Include="Imagenes\fruit_food_apple.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\soybean.png" />
+    <Resource Include="Imagenes\sulfide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\china.png" />
+    <Resource Include="Imagenes\gluten.png" />
+    <Resource Include="Imagenes\mexico.png" />
+    <Resource Include="Imagenes\milk.png" />
+    <Resource Include="Imagenes\united_states.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Imagenes\burguer.jpg" />
+    <Resource Include="Imagenes\cerdoagridulce.jpg" />
+    <Resource Include="Imagenes\dumplings.jpg" />
+    <Resource Include="Imagenes\fajitas.jpg" />
+    <Resource Include="Imagenes\hotdog.jpg" />
+    <Resource Include="Imagenes\tacos.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
