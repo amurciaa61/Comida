@@ -39,9 +39,5 @@ namespace Comida
             listaListBox.DataContext = platos;
         }
 
-        private void sojaImage_MouseEnter(object sender, MouseEventArgs e)
-        {
-
-        }
     }
 }
