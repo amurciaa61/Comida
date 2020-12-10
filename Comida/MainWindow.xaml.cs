@@ -22,22 +22,25 @@ namespace Comida
     public partial class MainWindow : Window
     {
         ObservableCollection<Plato> platos = new ObservableCollection<Plato>();
-        List<Plato> pl;
-        Plato plato = null;
         public MainWindow()
         {
             InitializeComponent();
             string ruta = @"E:\DAM2A\Desarrollo Interfaces\Proyectos\Comida\Comida\Imagenes";
-            pl = Plato.GetSamples(ruta);
-            foreach (var item in pl)
+            List<Plato> pl = Plato.GetSamples(ruta);
+            foreach (Plato valor in pl)
             {
-                platos.Add(item);
+                platos.Add(valor);
             }
             ObservableCollection<string> tipoComida = new ObservableCollection<string> { "China", "Americana", "Mexicana" };
             paisesComboBox.DataContext = tipoComida;
-            contenedor.DataContext = platos[1];
             listaListBox.DataContext = platos;
         }
 
+        private void listaListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int indice = (sender as ListBox).SelectedIndex;
+            contenedor.DataContext = platos[indice];
+            paisesComboBox.SelectedItem = platos[indice].Tipo;
+        }
     }
 }
